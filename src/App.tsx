@@ -35,6 +35,8 @@ function App() {
       <Link to="/register">Register</Link>
       <br />
       <Link to="/input">Input Form</Link>
+      <br />
+      <Link to="/input2">Input Form 2</Link>
     </>
   );
 }

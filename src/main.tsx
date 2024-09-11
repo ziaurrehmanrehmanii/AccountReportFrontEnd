@@ -4,6 +4,7 @@ import App from "./App.tsx";
 import Dashboard from "./Pages/Dashboard.tsx";
 import ErrorPage from "./Pages/ErrorPage.tsx";
 import InputForm from "./Pages/InputForm.tsx";
+import InputForm2 from "./Pages/InputForm2.tsx";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Login } from "./Pages/Login.tsx";
@@ -36,6 +37,11 @@ const router = createBrowserRouter([
   {
     path: "/input",
     element: <InputForm />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/input2",
+    element: <InputForm2 />,
     errorElement: <ErrorPage />,
   },
 ]);

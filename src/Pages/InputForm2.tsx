@@ -4,8 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { DatePicker } from "@/components/DatePicker";
-
 import {
   Table,
   TableBody,
@@ -14,7 +12,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 
 type AccountingEntry = {
@@ -54,7 +51,7 @@ function generateDummyData(count: number): AccountingEntry[] {
   return dummyData;
 }
 
-export default function InputForm() {
+export default function InputForm2() {
   const [entries, setEntries] = useState<AccountingEntry[]>([]);
   const [formData, setFormData] = useState({
     liability: "",
@@ -64,13 +61,7 @@ export default function InputForm() {
     equity: "",
     revenue: "",
   });
-  const [dateRange, setDateRange] = useState<{ from?: Date; to?: Date }>({});
-  const handleDateChange = (date: Date, identifier: string) => {
-    setDateRange((prev) => ({
-      ...prev,
-      [identifier]: date,
-    }));
-  };
+  const [dateRange, setDateRange] = useState({ from: "", to: "" });
   const [sortConfig, setSortConfig] = useState<SortConfig>({
     key: "date",
     direction: "desc",
@@ -166,7 +157,7 @@ export default function InputForm() {
   };
 
   return (
-    <div className="mx-auto p-4 h-screen flex flex-col">
+    <div className=" mx-auto p-4 h-screen flex flex-col">
       <div className="flex flex-col md:flex-row gap-8 flex-grow overflow-hidden">
         <div className="w-full p-2 md:w-1/3 overflow-y-auto flex items-center justify-center border-r border-gray-200 pr-8">
           <form onSubmit={handleSubmit} className="space-y-4 w-full">
@@ -196,49 +187,32 @@ export default function InputForm() {
           <div className="flex gap-4 mb-4">
             <div>
               <Label htmlFor="fromDate">From Date</Label>
-              <div>
-                <DatePicker
-                  currentValue={dateRange.from}
-                  onDateChange={handleDateChange}
-                  identifier="from"
-                />
-              </div>
-              {/* <Input
+              <Input
                 type="date"
                 id="fromDate"
                 value={dateRange.from}
                 onChange={(e) =>
                   setDateRange({ ...dateRange, from: e.target.value })
                 }
-              /> */}
+              />
             </div>
             <div>
               <Label htmlFor="toDate">To Date</Label>
-              <div>
-                <DatePicker
-                  currentValue={dateRange.to}
-                  onDateChange={handleDateChange}
-                  identifier="to"
-                />
-              </div>
-              {/* <Input
+              <Input
                 type="date"
                 id="toDate"
                 value={dateRange.to}
                 onChange={(e) =>
                   setDateRange({ ...dateRange, to: e.target.value })
                 }
-              /> */}
+              />
             </div>
           </div>
           <div ref={tableRef} className="overflow-hidden flex-grow">
             <div className="h-full flex flex-col">
-              <div
-                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-                className="bg-background overflow-auto"
-              >
+              <div className="bg-background">
                 <Table>
-                  <TableHeader className=" sticky top-0 bg-background">
+                  <TableHeader>
                     <TableRow>
                       {[
                         "date",
@@ -266,7 +240,18 @@ export default function InputForm() {
                       ))}
                     </TableRow>
                   </TableHeader>
-
+                </Table>
+              </div>
+              <div
+                className="overflow-y-auto flex-grow"
+                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              >
+                <style>{`
+                  ::-webkit-scrollbar {
+                    display: none;
+                  }
+                `}</style>
+                <Table>
                   <TableBody>
                     {sortedEntries.map((entry, index) => (
                       <TableRow
